@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NEW</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+
+</head>
+
+
+<style>
+  .ratingbox{
+    position: relative;
+    width: 400px;
+    padding: 20px 30px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .ratingbox .ratepost{
+    display: none;
+  }
+  .ratingbox .ratetext{
+    font-size: 25px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .ratingbox .edit:hover{
+    text-decoration: underline;
+  }
+  .ratingbox .ratestar-widget input{
+    display: none;
+  }
+  .ratestar-widget label{
+    font-size: 40px;
+    color: #444;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+  }
+  input:not(:checked) ~ label:hover,
+  input:not(:checked) ~ label:hover ~ label{
+    color: #fd4;
+  }
+  input:checked ~ label{
+    color: #fd4;
+  }
+  input#rate-5:checked ~ label{
+    color: #fe7;
+    text-shadow: 0 0 20px #952;
+  }
+  #rate-1:checked ~ form header:before{
+    content: "I just hate it 😤";
+  }
+  #rate-2:checked ~ form header:before{
+    content: "I don't like it 😥";
+  }
+  #rate-3:checked ~ form header:before{
+    content: "It is awesome 🙂";
+  }
+  #rate-4:checked ~ form header:before{
+    content: "I just like it 😄";
+  }
+  #rate-5:checked ~ form header:before{
+    content: "I just love it 😍";
+  }
+  .ratingbox form{
+    display: none;
+  }
+  input:checked ~ form{
+    display: block;
+  }
+  form header{
+    width: 100%;
+    font-size: 25px;
+    color: #fe7;
+    font-weight: 500;
+    margin: 5px 0 20px 0;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  form .ratebtn{
+    height: 45px;
+    width: 100%;
+    margin: 15px 0;
+  }
+  form .ratebtn button{
+    height: 100%;
+    width: 100%;
+    border: 1px solid #444;
+    outline: none;
+    background: #222;
+    color: #999;
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  form .ratebtn button:hover{
+    background: #1b1b1b;
+  }
+</style>
+
+
+
+
+
+
+
+<body id="content">
+	<div class="results">
+	    <center>
+	      <h2 id="name" class="text-uppercase">{{title}}</h2>
+	    </center>
+	</div>
+	<br>
+
+<div id="mycontent">
+    <div id="mcontent">
+      <div class="poster-lg">
+        <img class="poster" style="border-radius: 40px;margin-left: 90px;" height="400" width="250" src={{poster}}>
+      </div>
+      <div class="poster-sm text-center">
+        <img class="poster" style="border-radius: 40px;margin-bottom: 5%;" height="400" width="250" src={{poster}}>
+      </div>
+      <div id="details">
+        <br/>
+        <h6 id="title" style="color:white;">TITLE: &nbsp;{{title}}</h6>
+        <h6 id="overview" style="color:white;max-width: 85%">OVERVIEW: <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overview}}</h6>
+        <h6 id="vote_average" style="color:white;">RATING: &nbsp;{{vote_average}}/10 ({{vote_count}} votes)</h6>
+        <h6 id="genres" style="color:white;">GENRE: &nbsp;{{genres}}</h6>
+        <h6 id="date" style="color:white;">RELEASE DATE: &nbsp;{{release_date}}</h6>
+        <h6 id="runtime" style="color:white;">RUNTIME: &nbsp;{{runtime}}</h6>
+        <h6 id="status" style="color:white;">STATUS: &nbsp;{{status}}</h6>
+        <div class="ratingbox">
+          <div class="ratepost">
+             <div class="ratetext">
+                Thanks for rating us!
+             </div>
+          </div>
+          <div class="ratestar-widget">
+            <input type="radio" name="rate" id="rate-5">
+            <label for="rate-5" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-4">
+            <label for="rate-4" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-3">
+            <label for="rate-3" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-2">
+            <label for="rate-2" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-1">
+            <label for="rate-1" class="fas fa-star"></label>
+            
+            <form action="#">
+              <header></header>
+          
+              <div class="ratebtn">
+                <button type="submit" id ="ratebutton" class ="buttonrate">Post</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<br/>
+	
+{% for name, details in cast_details.items() if not cast_details.hidden %}
+  <div class="modal fade" id="{{details[0]}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #1410f8;color: white;">
+          <h5 class="modal-title" id="exampleModalLabel3">{{name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: grey">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body" style="background-color: seashell;">
+          <img class="profile-pic" src="{{details[1]}}" alt="{{name}} - profile" style="width: 250px;height:400px;border-radius: 10px;" />
+          <div style="margin-left: 20px">
+            <p><strong>Birthday:</strong> {{details[2]}} </p>
+            <p><strong>Place of Birth:</strong> {{details[3]}} </p>
+            <p> 
+              <p><strong>Biography:</strong><p>
+              {{details[4]}}
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  
+  {% if casts|length > 1 %}
+  <div class="movie" style="color: #E8E8E8;">
+    	<center>
+		<h3>TOP CAST</h3>
+		<h5>(Click on the cast to know more)</h5>
+	</center>
+  </div>
+
+  <div class="movie-content">
+        {% for name, details in casts.items() if not casts.hidden %}
+          <div class="castcard card" style="width: 15rem;" title="Click to know more about {{name}}" data-toggle="modal" data-target="#{{details[0]}}">
+            <div class="imghvr">
+              <img class="card-img-top cast-img" id="{{details[0]}}" height="360" width="240" alt="{{name}} - profile" src="{{details[2]}}">
+              <figcaption class="fig">
+                <button class="card-btn btn btn-danger"> Know More </button>
+              </figcaption>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{name|title}}</h5>
+              <h5 class="card-title"><span style="color:#756969;font-size: 20px;">Character: {{details[1]|title}}</span></h5>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+{% endif %}
+
+  <center>
+    {% if reviews %}
+    <h2 style="color:white">USER REVIEWS</h2>
+     <div class="col-md-12" style="margin: 0 auto; margin-top:25px;">
+        
+		      {% for review, status in reviews.items() if not reviews.hidden %}
+		    
+              <ul class="list-group">
+                <li class="list-group-item d-flex"><img src="/static/profile.png" class="img-fluid" style="max-width: 12%; max-height: 107.125px;">{{review}}</li>
+                {% if status =='Good' %}
+                    <li class="list-group-item"><i class="far fa-smile text-info mx-2"></i><span class="badge badge-success badge-pill">{{status}}</span></li>
+	              {% else %}
+                    <li class="list-group-item"><i class="fas fa-venus text-warning mx-2"></i><span class="badge badge-danger badge-pill">{{status}}</span></li>
+	              {% endif %}
+                
+              </ul>
+
+      			{% endfor %}
+    		
+    </div>
+    {% else %}
+    <div style="color:white;">
+      <h1 style="color:white"> This movie is not released yet. Stay tuned! </h1>
+    </div>
+    {% endif %}
+  </center>
+
+      {% if movie_cards|length > 1 %}
+
+
+      <div class="movie" style="color: #E8E8E8;margin-top: 20px;">
+      <center><h3>RECOMMENDED MOVIES FOR YOU</h3><h5>(Click any of the movies to get recommendation)</h5></center>
+    </div>
+
+    <div class="movie-content">
+      {% for poster, title in movie_cards.items() if not movie_cards.hidden %}
+        <div class="card" style="width: 15rem;" title="{{title}}" onclick="recommendcard(this)">
+          <div class="imghvr">
+            <img class="card-img-top" height="360" width="240" alt="{{title}} - poster" src={{poster}}>
+            <figcaption class="fig">
+              <button class="card-btn btn btn-danger"> See Details </button>
+            </figcaption>
+           </div>
+          <div class="card-body">
+            <h5 class="card-title">{{title|capitalize}}</h5>
+          </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    {% endif %}
+
+    
+    </div>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+    const btn = document.querySelector(".buttonrate");
+    const post = document.querySelector(".ratepost");
+    const widget = document.querySelector(".ratestar-widget");
+    btn.onclick = ()=>{
+      widget.style.display = "none";
+      post.style.display = "block";
+      
+      return false;
+    }
+ </script>
+</body>
+</html>
